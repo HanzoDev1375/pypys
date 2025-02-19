@@ -10,10 +10,26 @@ SRCDIR=src/Python-$PYVER
 
 COMMON_ARGS="--arch ${ARCH:-arm} --api ${ANDROID_API:-28}"
 
+# Function to install xz if not installed
+install_xz() {
+    if command -v apt &> /dev/null; then
+        sudo apt update && sudo apt install -y xz-utils
+    elif command -v yum &> /dev/null; then
+        sudo yum install -y xz
+    elif command -v dnf &> /dev/null; then
+        sudo dnf install -y xz
+    elif command -v pacman &> /dev/null; then
+        sudo pacman -S --noconfirm xz
+    else
+        echo "xz is not installed and no supported package manager found. Please install xz-utils manually."
+        exit 1
+    fi
+}
+
 # Check if xz is installed
 if ! command -v xz &> /dev/null; then
-    echo "xz is not installed. Please install xz-utils."
-    exit 1
+    echo "xz is not installed. Installing xz..."
+    install_xz
 fi
 
 if [ ! -d $SRCDIR ]; then
