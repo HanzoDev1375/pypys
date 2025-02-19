@@ -14,12 +14,6 @@ COMMON_ARGS="--arch ${ARCH:-arm} --api ${ANDROID_API:-28}"
 install_xz() {
     if command -v apt &> /dev/null; then
          apt update &&  apt-get install -y xz-utils
-    elif command -v yum &> /dev/null; then
-        ## yum install -y xz
-    elif command -v dnf &> /dev/null; then
-         ##dnf install -y xz
-    elif command -v pacman &> /dev/null; then
-        ## pacman -S --noconfirm xz
     else
         echo "xz is not installed and no supported package manager found. Please install xz-utils manually."
         exit 1
