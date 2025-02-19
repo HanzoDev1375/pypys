@@ -4,7 +4,8 @@ set -e
 set -x
 
 THIS_DIR="$PWD"
-
+sudo apt update
+sudo apt install autoconf
 PYVER=3.12.9
 SRCDIR=src/Python-$PYVER
 
