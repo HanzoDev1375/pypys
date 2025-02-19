@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Android NDK
         run: |
@@ -31,7 +31,7 @@ jobs:
         run: sudo docker run --rm -v $(pwd):/python3-android -v ${NDK_PATH}:/android-ndk:ro --env ARCH=arm64 --env ANDROID_API=23 python:3.11.0-slim /python3-android/docker-build.sh --enable-shared --without-ensurepip --disable-ipv6 --with-build-python
 
       - name: Upload arm64 artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: arm64-build
           path: ./build/*
@@ -43,7 +43,7 @@ jobs:
         run: sudo docker run --rm -v $(pwd):/python3-android -v ${NDK_PATH}:/android-ndk:ro --env ARCH=arm --env ANDROID_API=23 python:3.11.0-slim /python3-android/docker-build.sh --enable-shared --without-ensurepip --disable-ipv6 --with-build-python
 
       - name: Upload arm artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: arm-build
           path: ./build/*
