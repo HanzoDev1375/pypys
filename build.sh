@@ -8,14 +8,18 @@ THIS_DIR="$PWD"
 PYVER=3.12.9
 SRCDIR=src/Python-$PYVER
 
-COMMON_ARGS="--arch ${ARCH:-arm} --api ${ANDROID_API:-23}"
+COMMON_ARGS="--arch ${ARCH:-arm} --api ${ANDROID_API:-28}"
+
+# Check if xz is installed
+if ! command -v xz &> /dev/null; then
+    echo "xz is not installed. Please install xz-utils."
+    exit 1
+fi
 
 if [ ! -d $SRCDIR ]; then
     mkdir -p src
     pushd src
     curl -vLO https://www.python.org/ftp/python/$PYVER/Python-$PYVER.tar.xz
-    # Use --no-same-owner so that files extracted are still owned by the
-    # running user in a rootless container
     tar --no-same-owner -xf Python-$PYVER.tar.xz
     popd
 fi
