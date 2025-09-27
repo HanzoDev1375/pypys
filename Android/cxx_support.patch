@@ -1,8 +1,10 @@
 diff --git a/configure.ac b/configure.ac
-index xxxxx..xxxxx
+index 73ee71c6d2..a62edaebae 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -xxx, +xxx @@
+@@ -50,6 +50,7 @@ m4_if(m4_defn([AC_PACKAGE_VERSION]), [2.69], [], [m4_fatal([Please use exactly Autoconf 2.69)])])
+ AC_PREREQ(2.69)
+ 
  AC_PROG_CC
 +AC_PROG_CXX
  AC_PROG_CPP
