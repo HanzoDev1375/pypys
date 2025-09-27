@@ -1,0 +1,8 @@
+diff --git a/configure.ac b/configure.ac
+index xxxxx..xxxxx
+--- a/configure.ac
++++ b/configure.ac
+@@ -xxx, +xxx @@
+ AC_PROG_CC
++AC_PROG_CXX
+ AC_PROG_CPP

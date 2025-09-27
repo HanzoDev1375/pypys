@@ -162,7 +162,7 @@ def main():
     package_classes = (
         # ncurses is a dependency of readline
         NCurses,
-        BZip2, GDBM, LibFFI, LibUUID, OpenSSL, Readline, SQLite, XZ, ZLib,
+        BZip2, GDBM, LibFFI, LibUUID, OpenSSL, Readline, SQLite, XZ, ZLib,LibCXX
     )
 
     for pkg_cls in package_classes:
@@ -170,3 +170,18 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# بعد از خط 160 در build_deps.py
+class LibCXX(Package):
+    source = ''
+    
+    def build(self):
+        # کپی کتابخانه‌های C++ از NDK
+        ndk_path = pathlib.Path(os.getenv('ANDROID_NDK'))
+        lib_dir = ndk_path / 'toolchains' / 'llvm' / 'prebuilt' / 'linux-x86_64' / 'sysroot' / 'usr' / 'lib' / f'{self.target_arch.ANDROID_TARGET}'
+        
+        # کپی libc++_shared.a و libc++_static.a
+        for lib_file in lib_dir.glob('libc++*'):
+            if lib_file.is_file():
+                dest_path = SYSROOT / 'usr' / 'lib' / lib_file.name
+                shutil.copy2(lib_file, dest_path)
